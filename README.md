@@ -14,7 +14,7 @@ A smart lost-and-found web application for the University of Arizona campus that
 ```
 wildcat-lost-found/
 ├── backend/
-│   ├── function.py         # GCP Cloud Function code
+│   ├── app.py         # GCP Cloud Function code
 │   └── requirements.txt    # Python dependencies
 ├── frontend/
 │   ├── index.html         # Main HTML file
@@ -41,7 +41,7 @@ wildcat-lost-found/
        --trigger-http \
        --allow-unauthenticated \
        --memory 1024MB \
-       --region YOUR_REGION
+       --region REGION
    ```
 
 3. Note the Function URL provided in the deployment output.
@@ -50,17 +50,17 @@ wildcat-lost-found/
 
 1. Create a Cloud Storage bucket:
    ```bash
-   gsutil mb gs://YOUR_BUCKET_NAME
+   gsutil mb gs://BUCKET_NAME
    ```
 
 2. Make the bucket public:
    ```bash
-   gsutil iam ch allUsers:objectViewer gs://YOUR_BUCKET_NAME
+   gsutil iam ch allUsers:objectViewer gs://BUCKET_NAME
    ```
 
 3. Enable website hosting:
    ```bash
-   gsutil web set -m index.html gs://YOUR_BUCKET_NAME
+   gsutil web set -m index.html gs://BUCKET_NAME
    ```
 
 4. Update the API endpoint in `frontend/config.js` with your Cloud Function URL.
@@ -68,7 +68,7 @@ wildcat-lost-found/
 5. Upload frontend files:
    ```bash
    cd frontend
-   gsutil cp -r * gs://YOUR_BUCKET_NAME
+   gsutil cp -r * gs://BUCKET_NAME
    ```
 
 ## Local Development
@@ -83,7 +83,7 @@ wildcat-lost-found/
 
 2. Run locally:
    ```bash
-   python function.py
+   python app.py
    ```
 
 ### Frontend
@@ -94,7 +94,7 @@ wildcat-lost-found/
    python3 -m http.server 8000
    ```
 
-2. Open http://localhost:8000 in your browser.
+2. Open http://localhost:8000 in browser.
 
 ## Configuration
 
